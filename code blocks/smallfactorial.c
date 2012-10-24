@@ -1,0 +1,35 @@
+#include<stdio.h>
+void main()
+{
+    int n,i,j,k,t,temp,len,b[200],c[200],n1;
+    scanf("%d",&t);
+    while(t--)
+    {
+        scanf("%d",&n);
+        n1=n;
+        for(i=0;n!=0;i++)
+        {
+            b[i]=n%10;n=n/10;
+        }
+        len=i;printf("%d\n",len);
+        for(i=0;i<len;i++)
+        {
+            printf("%d\n",b[i]);
+        }
+        for(i=n1-1;i>=2;i--)
+        {
+            temp=0;
+            for(j=0;j<len;j++)
+            {
+                k=b[j]*i+temp;printf("k=%d\n",k);
+                c[j]=k%10;printf("b[j]=%d\n",b[j]);
+                temp=k/10;printf("temp=%d\n",temp);
+            }
+        }
+        for(i=0;i<len;i++)
+        {
+            printf("c[i]=%d\n",c[i]);
+        }
+        printf("%d\n");
+    }
+}
