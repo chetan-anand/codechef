@@ -26,7 +26,7 @@ int hashfunc(char *a,int size)
     for(i=0;i<size;i++)
     {
         ascii=a[i];
-        count=count*31+a[i];
+        count=count*13+a[i];
     }
 }
 
