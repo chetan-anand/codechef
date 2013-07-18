@@ -1,3 +1,6 @@
+///Djisktra Algorithm --------------------------------------  O(v*logv)
+
+
 #include<stdio.h>
 #include<limits.h>
 
