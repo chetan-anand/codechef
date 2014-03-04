@@ -1,29 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
 
-//this is the programme for understanding the use of constructor and destructor
+int mat[1100][1100];
+int c[1100][1100];
+int n,m,k,xi,yi;
+//////////////////////////////////
+/**
+n= number of column
+m= number of rows
 
-#include<stdio.h>
-#include<iostream>
-class test
+**/
+
+int findMax(int* height)
 {
-    public:
-    test()
+
+}
+
+int maximalRectangle()
+{
+    int i,j,k;
+    int maxRect=0;
+    for(i=0;i<m;i++)
     {
-        printf("constructor is invoked\n");
+        for(j=0;j<n;j++)
+        {
+            if(mat[i][j]==0)
+            {
+                c[i][j]=0;
+            }
+            else
+            {
+                if(i>0)
+                {
+                    cache[i][j]=cache[i-1][j]+1;
+                }
+                else
+                {
+                    cache[i][j]=1;
+                }
+            }
+        }
+        int rowMax=findMax(c[i]);
+        if(rowMax>maxRect)
+        {
+            maxRect=rowMax;
+        }
     }
-    ~test()
-    {
-        printf("destructor is invoked\n");
-    }
-};
-test obj1;
+    return maxRect;
+}
+
+
+///////////////////////////////////
 int main()
 {
-    printf("main() begins\n");
-    test obj2;
+    freopen("i.txt","r",stdin);
+    cin>>n>>m>>k;
+    memset(mat,0,sizeof(mat));
+    memset(c,0,sizeof(c));
+    while(k--)
     {
-        printf("inner block begins\n");
-        test obj3;
-        printf("inner block ends\n");
+        cin>>xi>>yi;
+        mat[xi][yi]=1;
     }
+
+
+
+
+    fclose(stdin);
     return 0;
 }

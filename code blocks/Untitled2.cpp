@@ -1,105 +1,83 @@
-#include <cstdio>
-#include <cstring>
-#include <vector>
-
+#include<bits/stdc++.h>
 using namespace std;
+#define mod 1000000007
+long long int mat[10][10];
+long long int colors,row,col,ans;
 
-#define MAX_V1 50000
-#define MAX_V2 50000
-#define MAX_E 150000
 
-int V1,V2,l[MAX_V1],r[MAX_V2];
-int E,to[MAX_E],next[MAX_E],last[MAX_V1];
-bool visited[MAX_V1];
-
-void init(){
-	memset(last,-1,sizeof(int)*V1);
-	E = 0;
-}
-
-void add_edge(int u, int v){
-	to[E] = v, next[E] = last[u]; last[u] = E; ++E;
-}
-
-bool pairup(int u){
-    if (visited[u])  return false;
-    visited[u] = true;
-
-    for(int e = last[u];e!=-1;e = next[e]){
-        int v = to[e];
-
-        if(r[v]==-1 || pairup(r[v])){
-            l[u] = v;
-            r[v] = u;
-            return true;
-        }
-    }
-
+bool lok(long long int r, long long int c, long long int n)
+{
+    if(c == 0){return true;}
+    if(mat[r][c - 1] != n){return true;}
     return false;
 }
 
-int hopcroft_karp(){
-    bool change = true;
-    memset(l,-1,sizeof(int)*V1);
-    memset(r,-1,sizeof(int)*V2);
-
-    while(change){
-        change = false;
-        memset(visited,false,sizeof(bool)*V1);
-
-        for(int i = 0;i<V1;++i)
-            if(l[i]==-1) change |= pairup(i);
-    }
-
-    int ret = 0;
-
-    for(int i = 0;i<V1;++i)
-        if(l[i]!=-1) ++ret;
-
-    return ret;
+bool rok(long long int r, long long int c, long long int n)
+{
+    if(c == col - 1){return true;}
+    if(mat[r][c + 1] != n){return true;}
+    return false;
 }
 
-void readInt(int &n){
-	int sign = 1;
-	char c;
-    n = 0;
+bool tok(long long int r, long long int c, long long int n)
+{
+    if(r == 0){return true;}
+    if(mat[r - 1][c] != n){return true;}
+    return false;
+}
 
-    while(true){
-    	c = getc(stdin);
+bool bok(long long int r, long long int c, long long int n)
+{
+    if(r == row - 1){return true;}
+    if(mat[r + 1][c] != n){return true;}
+    return false;
+}
 
-        switch( c ){
-			case '-' :
-				sign = -1;
-            case ' ':
-            	goto jump;
-            case '\n':
-            	goto jump;
-            default:
-            	n *= 10;
-            	n += c-'0';
-            	break;
+
+
+
+bool valid(long long int r, long long int c, long long int n)
+{
+    return(lok(r, c, n) && rok(r, c, n) &&  tok(r, c, n) &&  bok(r, c, n));
+}
+
+
+
+void solve(long long int r,long long int c)
+{
+    for(long long int i=1;i<=colors;i++)
+    {
+        if(valid(r,c,i))
+        {
+            mat[r][c]=i;
+            if(r== row-1 && c == col-1)
+            {
+                if(ans>=mod){ans=ans%mod;}
+                ans=ans+1;
+            }
+            else if(r==row-1){solve(0,c+1);}
+            else{solve(r+1,c);}
         }
     }
-
-	jump:
-    	n *= sign;
+    mat[r][c]=0;
 }
 
-int main(){
-	int e,u,v;
-	readInt(V1);
-	readInt(V2);
-	readInt(e);
 
-	init();
 
-	while(e--){
-		readInt(u); readInt(v);
-		--u; --v;
-		add_edge(u,v);
-	}
 
-	printf("%d\n",hopcroft_karp());
+int main()
+{
+    long long int t,i,j,k;
 
-	return 0;
+    scanf("%lld",&t);
+    while(t--)
+    {
+        ans=0;
+        memset(mat,0,sizeof(mat));
+        scanf("%lld %lld %lld",&row,&col,&colors);
+        solve(0,0);
+        printf("%lld\n",ans);
+    }
+
+    return 0;
 }

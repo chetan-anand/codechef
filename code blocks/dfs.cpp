@@ -1,13 +1,10 @@
-#include <vector>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
+#include<bits/stdc++.h>
 using namespace std;
 vector<int> adjacency[10000];
 bool visited[10000];
 
-/// @param Standard algorithm DFS
-void dfs(int u){
+void dfs(int u)
+{
     visited[ u ] = true;
     for( int v = 0 ; v < adjacency[u].size(); ++v ){
         if( !visited[ adjacency[u][v] ] ){
@@ -18,7 +15,7 @@ void dfs(int u){
 
     int main(int argc, char *argv []){
 
-
+        std::pair<int,int> x;
          ///enumerate vertices from 1 to vertex
         int vertex, edges , originNode ,destinationNode, i, j,cont =1,total;
         ///number of test cases
@@ -31,8 +28,9 @@ void dfs(int u){
         memset( visited , 0 , sizeof( visited ) );
         scanf("%d %d" , &vertex , &edges );
         for (j=0; j<edges; j++){
-            scanf("%d %d" , &originNode ,&destinationNode );
-            adjacency[ originNode ].push_back( destinationNode );
+            scanf("%d %d" ,&originNode ,&destinationNode );
+
+            adjacency[ originNode ].push_back( destinationNode);
             adjacency[ destinationNode ].push_back( originNode );
         }
             totalComponents =0;

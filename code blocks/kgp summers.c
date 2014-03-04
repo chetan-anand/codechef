@@ -9,6 +9,7 @@ int main()
     int i,j,k,n,t,temp,min,len,cnt;
     int ch[2600];
     int x[2506],y[2506];
+    int len[2506];
     int d[2600];
     /*for(i=0;i<10;i++)
     {
@@ -20,7 +21,7 @@ int main()
         scanf("%d",&n);
         for(i=1;i<=n;i++)
         {
-            scanf("%d %d",&x[i],&y[i]);
+            scanf("%d %d",&x[i],&y[i],&);
             ch[i]=0;
             d[i]=INT_MAX;
         }
